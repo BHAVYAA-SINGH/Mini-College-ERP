@@ -130,42 +130,6 @@ Follow these steps to get the project running on your local machine:
 9.  Access the **Django Admin** site at `http://127.0.0.1:8000/admin/` using your superuser credentials for backend data management.
 10. Click the "Logout" button in the header when finished.
 
-## Project Structure
-
-
-mini_college_erp/
-├── college_erp/ # Main project configuration
-│ ├── settings.py # Project settings (DB, INSTALLED_APPS, etc.)
-│ ├── urls.py # Project-level URL routing
-│ └── ...
-├── core/ # Core app (Home page, maybe future site-wide views)
-│ ├── views.py # Home view, register view (if implemented)
-│ └── urls.py # Core app URLs
-│ └── ...
-├── students/ # Students app (Student model, Enrollment model, CRUD views/forms/templates)
-│ ├── models.py # Student and Enrollment models
-│ ├── forms.py # StudentForm, EnrollmentForm
-│ ├── views.py # Student/Enrollment CRUD views
-│ ├── urls.py # Student/Enrollment URLs
-│ ├── admin.py # Student, Enrollment admin registration
-│ └── ...
-├── courses/ # Courses app (Course model, CRUD views/forms/templates)
-│ ├── models.py # Course model
-│ ├── forms.py # CourseForm
-│ ├── views.py # Course CRUD views
-│ ├── urls.py # Course URLs
-│ ├── admin.py # Course admin registration
-│ └── ...
-├── templates/ # Project-level templates directory
-│ ├── base.html # Base template for inheritance
-│ ├── core/ # Core app templates (e.g., home.html)
-│ ├── students/ # Students app templates (list, detail, add, edit, delete, add_enrollment, delete_enrollment)
-│ ├── courses/ # Courses app templates (list, detail, add, edit, delete)
-│ └── registration/ # Auth templates (login.html, register.html if implemented)
-├── venv/ # Python virtual environment
-├── db.sqlite3 # Default SQLite database file
-└── manage.py # Django management utility
-
 ## Future Enhancements
 
 *   Implement user roles/permissions (e.g., Faculty vs. Admin) to restrict CRUD actions or data visibility.
