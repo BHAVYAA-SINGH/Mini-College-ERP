@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}{{ student.first_name }} {{ student.last_name }} - Mini College ERP{% endblock title %}
+
+{% block content %}
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-4"> Student Details</h1>
+        <div class="border-t border-gray-200 pt-4">
+            <p class="text-lg text-gray-800 mb-2"><strong class="font-semibold">Student ID:</strong> {{ student.student_id }}</p>
+            <p class="text-lg text-gray-800 mb-2"><strong class="font-semibold">Name:</strong> {{ student.first_name }} {{ student.last_name }}</p>
+            <p class="text-lg text-gray-800 mb-2"><strong class="font-semibold">Email:</strong> {{ student.email|default:"N/A" }}</p>
+            <p class="text-lg text-gray-800 mb-2"><strong class="font-semibold">Date of Enrollment:</strong> {{ student.date_of_enrollment }}</p>
+        </div>
+
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">Enrolled Courses</h2>
+
+        <div class="mb-4"> 
+        <a href="{% url 'students:add_enrollment' student.pk %}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded inline-block text-sm">
+            Add Enrollment
+        </a>
+        </div>
+
+        {% if student.enrollment_set.all %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">Course Code</th>
+                        <th class="py-3 px-6 text-left">Course Name</th>
+                        <th class="py-3 px-6 text-left">Credits</th>
+                        <th class="py-3 px-6 text-left">Grade</th>
+                        <th class="py-3 px-6 text-left">Enrollment Date</th>
+                        <th class="py-3 px-6 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                    {% for enrollment in student.enrollment_set.all %}
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <a href="{% url 'courses:detail' enrollment.course.pk %}" class="text-blue-600 hover:underline">{{ enrollment.course.course_code }}</a>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                <a href="{% url 'courses:detail' enrollment.course.pk %}" class="text-blue-600 hover:underline">{{ enrollment.course.course_name }}</a>
+                            </td>
+                            <td class="py-3 px-6 text-left">{{ enrollment.course.credits }}</td>
+                            <td class="py-3 px-6 text-left">{{ enrollment.get_grade_display|default:"-" }}</td>
+                            <td class="py-3 px-6 text-left">{{ enrollment.enrollment_date}}</td>
+                            <td class="py-3 px-6 text-center">
+                            <form action="{% url 'students:delete_enrollment' enrollment.pk %}" method="post" class="inline-block">
+                                {% csrf_token %}
+                                <button type="submit" class="text-red-600 hover:text-red-900 text-xs">
+                                    Delete
+                                </button>
+                            </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-center text-gray-700">Not currently enrolled in any courses.</p>
+    {% endif %}
+
+        <div class="mt-8 text-center">
+            <a href="{% url 'students:edit' student.pk %}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-block mr-2">
+            Edit Student
+            </a>
+             <a href="{% url 'students:delete' student.pk %}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block mr-2">
+            Delete Student
+            </a>
+            <a href="{% url 'students:list' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
+                Back to Student List
+             </a>
+             <a href="{% url 'core:home' %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded inline-block ml-2">
+                Back to Home
+            </a>
+        </div>
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}{{ course.course_code }}: {{ course.course_name }} - Mini College ERP{% endblock title %}
+{% block content %}
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-4">Course Details</h1>
+        <div class="border-t border-gray-200 pt-4">
+            <p class="text-lg text-gray-800 mb-2"><strong class="font-semibold">Course Code:</strong> {{ course.course_code }}</p>
+            <p class="text-lg text-gray-800 mb-2"><strong class="font-semibold">Course Name:</strong> {{ course.course_name }}</p>
+            <p class="text-lg text-gray-800 mb-2"><strong class="font-semibold">Credits:</strong> {{ course.credits }}</p>
+            <p class="text-lg text-gray-800 mb-2"><strong class="font-semibold">Description:</strong> {{ course.description|default:"No description available." }}</p>
+        </div>
+
+        <h2 class="text-2xl font-bold text-blue-600 mb-4">Enrolled Students</h2>
+        {% if course.enrollment_set.all %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">Student ID</th>
+                            <th class="py-3 px-6 text-left">Name</th>
+                            <th class="py-3 px-6 text-left">Grade</th>
+                            <th class="py-3 px-6 text-left">Enrollment Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm font-light">
+                        {% for enrollment in course.enrollment_set.all %}
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left whitespace-nowrap">
+                                    <a href="{% url 'students:detail' enrollment.student.pk %}" class="text-blue-600 hover:underline">{{ enrollment.student.student_id }}</a>
+                                </td>
+                                <td class="py-3 px-6 text-left">
+                                    <a href="{% url 'students:detail' enrollment.student.pk %}" class="text-blue-600 hover:underline">
+                                        {{ enrollment.student.first_name }} {{ enrollment.student.last_name }}
+                                    </a>
+                                </td>
+                                <td class="py-3 px-6 text-left">{{ enrollment.get_grade_display|default:"-" }}</td>
+                                <td class="py-3 px-6 text-left">{{ enrollment.enrollment_date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center text-gray-700">No students enrolled yet.</p>
+        {% endif %}
+
+        <div class="mt-8 text-center">
+            <a href="{% url 'courses:edit' course.pk %}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded inline-block mr-2">
+            Edit Course
+            </a>
+             <a href="{% url 'courses:delete' course.pk %}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block mr-2">
+            Delete Course
+            </a>
+             <a href="{% url 'courses:list' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">
+                Back to Course List
+             </a>
+             <a href="{% url 'core:home' %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded inline-block ml-2">
+                 Back to Home
+             </a>
+        </div>
+{% endblock content %}

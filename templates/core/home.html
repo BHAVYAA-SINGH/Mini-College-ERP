@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Home - Mini College ERP{% endblock title %}
+
+{% block content %}
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-4">Welcome to the Mini College ERP!</h1>
+        <p class="text-gray-700 text-center">This is our home page. Navigate using the links above.
+        </p>
+        <div class="mt-6 text-center">
+            <a href="{% url 'students:list' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View Students</a>
+            <a href="{% url 'courses:list' %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block ml-2">View Courses</a>
+        </div>
+{% endblock content %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mini College ERP{% endblock %}</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <header class="bg-blue-700 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'core:home' %}" class="text-2xl font-bold">Mini College ERP</a>
+            <nav>
+                <a href="{% url 'students:list' %}" class="text-white hover:text-blue-200 mr-4">Students</a>
+                <a href="{% url 'courses:list' %}" class="text-white hover:text-blue-200">Courses</a>
+
+
+                {% if user.is_authenticated %}
+                    <span class="mr-4">Hello, {{ user.username }}</span>
+                    <form action="{% url 'logout' %}" method="post" class="inline">
+                        {% csrf_token %} 
+                        <button type="submit" class="text-white hover:text-blue-200 bg-transparent border-none p-0 m-0 cursor-pointer">
+                            Logout
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-white hover:text-blue-200">Login</a>
+                {% endif %}
+
+            </nav>
+        </div>
+    </header>
+    <main class="container mx-auto mt-4 p-6 bg-white rounded shadow-lg mb-8">
+        {% block content %}{% endblock content %}
+   </main>
+   <footer class="mt-8 py-4 text-center text-gray-600 text-sm">
+    © {{ request.META.HTTP_HOST|default:'Mini College ERP' }} 2023. All rights reserved.
+   </footer>
+</body>
+</html>

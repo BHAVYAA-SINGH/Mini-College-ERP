@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Student List - Mini College ERP{% endblock title %}
+
+{% block content %}
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-8">List of Students</h1>
+
+        <div class="mb-6 text-right"> 
+            <a href="{% url 'students:add' %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block">
+                Add New Student
+            </a>
+        </div>
+
+        {% if students %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">Student ID</th>
+                        <th class="py-3 px-6 text-left">Name</th>
+                        <th class="py-3 px-6 text-left">Email</th>
+                        <th class="py-3 px-6 text-left">Enrollment Date</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                    {%for student in students%}
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                        <td class="py-3 px-6 text-left whitespace-nowrap">{{ student.student_id }}</td>
+                        <td class="py-3 px-6 text-left">
+                            <a href="{% url 'students:detail' student.pk %}" class="text-blue-600 hover:underline">
+                                {{ student.first_name }} {{ student.last_name }}
+                            </a>
+                        </td>
+                        <td class="py-3 px-6 text-left">{{ student.email|default:"N/A" }}</td>
+                        <td class="py-3 px-6 text-left">{{ student.date_of_enrollment }}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            <table>
+        </div>
+        {%else%}
+        <p class="text-center text-gray-700">No students found.</p>
+        {%endif%}
+        <div class="mt-6 text-center">
+            <a href="{% url 'core:home' %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded inline-block">Back to Home</a>
+        </div>
+{% endblock content %}              
+            
+
