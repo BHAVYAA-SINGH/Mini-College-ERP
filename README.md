@@ -42,6 +42,21 @@ This project demonstrates fundamental web development concepts with Django, incl
     *   Access to the powerful Django Admin site (`/admin/`) for comprehensive data management (requires superuser).
     *   *Note: A public self-service registration feature was not implemented for simplicity in this version.*
 
+
+## Screenshots
+**Add Enrollment Form**
+![Screenshot 2025-05-10 130008](https://github.com/user-attachments/assets/3a4aeccf-2a00-4b59-9687-b5a4907f8aa2)
+**Students Details Dashboard**
+![Screenshot 2025-05-10 130038](https://github.com/user-attachments/assets/2718c728-bb8b-40e1-934e-0bbe69ef3b0c)
+**Course Dashboard**
+![Screenshot 2025-05-10 130057](https://github.com/user-attachments/assets/86e348ef-5c8a-4f50-ac99-7cae11a947e0)
+**Add Student Form**
+![Screenshot 2025-05-10 130110](https://github.com/user-attachments/assets/24e749bc-3e60-4925-8252-e17efeadd11b)
+**Main Dashboard**
+![Screenshot 2025-05-10 130141](https://github.com/user-attachments/assets/c27d6ed5-3333-4fda-ae49-5e2a697f39eb)
+
+
+
 ## Technologies Used
 
 *   **Backend:** Python, Django
