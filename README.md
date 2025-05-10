@@ -91,8 +91,6 @@ Follow these steps to get the project running on your local machine:
     python manage.py startapp students
     python manage.py startapp courses
     ```
-    *(Ensure you have followed the steps to create the necessary models, forms, views, templates, and URLs within these apps as guided.)*
-
 7.  **Apply database migrations:**
     This creates the database tables for built-in apps and your custom models (Student, Course, Enrollment).
     ```bash
